@@ -1,0 +1,310 @@
+listas
+
+accion recorrer 4.3 (prim: puntero a nodo) es
+ ambiente 
+  nodo=registro 
+   dato:entero 
+   prox: puntero a nodo
+  fin registro 
+  
+  par:entero 
+  imapar:entero 
+  p:puntero a nodo 
+
+ proceso 
+
+  par:=0
+  impar:=0 
+  p:=prim
+
+  mientras (p <> NIL) hacer
+   si *p.dato mod 2 = 0 entonces 
+    par:= par + *p.dato 
+    sino
+     impar:= impar + *p.dato 
+   fin si 
+
+   p:= *p.prox 
+  fin mientras 
+
+  escribir ("la suma de los numeros impares es de:",impar)
+  escribir ("la suma de los numeros pares es de :", par)
+fin accion 
+
+
+
+
+
+accion recorrer 4.7 (texto: secuencia de alfanuemerico) es 
+ ambiente 
+  nodo=registro 
+   letra:alfanumerico 
+   freciencia:entero 
+   prox:puntero a nodo 
+  fin registro 
+  
+  p,prim,ant,q:puntero a nodo
+  c:alfanuemerico 
+  mayor,menor:entero 
+
+ proceso 
+  prim:= nil
+  arr(texto)
+  avz(texto,c)
+  
+  mintras fds(texto) hacer 
+   ant:= nil 
+   q:= prim 
+
+   mientras (q<>nil) y (*q.letra) entoces 
+    ant:= q
+    q:= *q.prox 
+   fin mientras 
+
+   si (q<>nil) y (*p.letra=c) entonces 
+    *q.frecuencia := *q.frecuencia + 1 
+   sino
+    nuevo(p)
+    *p.letra:=c
+    *p.frecuencia:=1
+    si (a = nil) entonces
+      *p.prox := prim
+      prim := p
+     sino
+      *p.prox := q
+      *a.prox := p
+    fin si 
+   fin si 
+   fin mientras 
+fin accion
+
+
+
+
+accion 4.1 (prim:puntero a nodo,k: entero) es 
+ ambiente 
+  nodo=registro 
+   dato:entero 
+   prox:entero 
+  fin registro 
+
+  p:puntero a nodo 
+  i:entero 
+
+  procedimiento acceder (prim:puntero a nodo, k:entero) es 
+   si (prim=nil) o (k<1) entonces 
+    escribir("error")
+    sino 
+     p:=prim 
+     i:=1
+     mientras (p <> nil) y (i < k) hacer
+      p := *p.prox
+      i := i + 1
+     fin mientras 
+
+    si p=nil entonces 
+     escribir("error")
+     sino
+      escribir("el elemento", k "es:", *p.dato)
+     fin si
+    fin si 
+  fin procedimeinto 
+
+  procedimiento eliminar (prim:putero a nodo, k:entero) es
+   si (prim=nil) o (k<1) entonces 
+    escribir("error")
+    sino 
+     a:= nil 
+     p:= *p.prox 
+     i:= 1
+     mientras (p<>nil) y (i<k) hacer 
+      a:=p
+      p:=*p.prox 
+      i:=i + 1 
+     fin mientras 
+
+     si p = nil entoces 
+      escribir ("error")
+      sino
+       si (a=nil) entonces
+        prim:= *p.prox 
+       sino
+        *a.prox:=*p.prox 
+       fin si
+       disponer(p)
+     fin si 
+   fin si
+  fin procedimiento 
+
+  procedimiento insertar (prim:putero a nodo, k:entero)
+   si (prim=nil) o (k<1) entonces 
+    escribir("error")
+    sino 
+     a:= nil 
+     p:=prim 
+     i:= 1 
+     mientras (p<>nil) y (i<k) hacer 
+      a:=prim 
+      p:= *p.prox 
+      i:=i + 1 
+     fin mientras 
+
+     si i < k entoces 
+      escribir("error")
+      sino
+       nuevo(q)
+       *q.dato := valor
+       si a=nil entoces 
+        *q.prox := prim 
+        prim := q 
+       sino 
+        *q.prox := p 
+        *a.prox := q 
+       fin si 
+     fin si 
+   fin si
+  fin procedimiento 
+
+
+accion numeros 4.2(prim:puntero a nodo, prim2:puntero a nodo) es 
+ nodo=registro 
+  dato:entero 
+  prox:puntero a nodo
+ fin registro 
+
+ p,a,sig:puntero a nodo 
+
+
+ proceso 
+ prim:= nil 
+ a:=nil
+ p:=prim
+
+ mientras p<>nil entonces 
+  sig:=*p.prox 
+
+  si *p.dato mod 10 = 0 entoces 
+   si a=nil entoces 
+    prim:=sig 
+    sino 
+     *a.prox:= sig 
+   fin si
+
+   *p.prox := prim2
+   prim2:=p
+  sino 
+   p:=sig
+ fin mientras 
+fin accion 
+
+accion 4.5 (prim:puntero a nodo , lista1:puntero a nodoPorc, lista2:puntero a nodoPorc, lista3:puntero a nodoPorc)
+ ambiente 
+  nodo=registro 
+   nombre:alfanuemerico 
+   capital:alfanumerico
+   cantHab:entero 
+   cantAnalfabetos:entero 
+   prox:puntero a nodo
+  fin registro 
+
+  nodoPorc=registro
+   nombre:alfanumerico 
+   capital:alfanumerico
+   pocentaje:real
+   prox:puntero a nodoPorc
+  fin registro 
+
+  p:= puntero a nodo 
+  q:= puntero a nodoPorc
+  porc:=real
+
+ proceso 
+  lista1:=nil 
+  lista2:=nil 
+  lista3:=nil
+  p:=prim 
+
+  mientras p<>nil hacer 
+   porc:=cantAnalfabetos * 100 / cantHab
+
+   si proc <= 10 entonces 
+    nuevo(q)
+    *q.nombre:=*p.nombre
+    *q.capital:=*p.capital
+    *q.porcentaje:=porc
+    *q.prox:=lista1
+    lista1:=q
+   fin si 
+
+   si porc>=16 y porc <=25 entoces 
+    nuevo(q)
+    *q.nombre:=*p.nombre
+    *q.capital:=*p.capital
+    *q.porcentaje:=porc
+    *q.prox:=lista2
+    lista2:=q
+   fin si 
+
+   si porc >=26 entoces 
+    nuevo(q)
+    *q.nombre:=*p.nombre
+    *q.capital:=*p.capital
+    *q.porcentaje:=porc
+    *q.prox:=lista3
+    lista3:=q
+   fin si 
+
+   p:=*p.prox 
+  fin mientras 
+fin accion 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
